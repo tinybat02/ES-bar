@@ -1,0 +1,25 @@
+{
+  "type": "panel",
+  "name": "ES Bar",
+  "id": "id-es-bar-by-group-setting",
+  "dataFormats": ["table"],
+  "info": {
+    "description": "ES Bar",
+    "author": {
+      "name": "Nam Le"
+    },
+    "keywords": [],
+    "logos": {
+      "small": "img/bar-day.svg",
+      "large": "img/bar-day.svg"
+    },
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+
+  "dependencies": {
+    "grafanaVersion": "6.3.x",
+    "plugins": []
+  }
+}
