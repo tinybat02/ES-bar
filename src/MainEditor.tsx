@@ -24,7 +24,7 @@ export const MainEditor: React.FC<PanelEditorProps<PanelOptions>> = ({ options, 
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTimezone(e.target.value)}
       />
       <button className="btn btn-primary" onClick={onSubmit}>
-        Set Filename
+        Submit
       </button>
     </div>
   );
