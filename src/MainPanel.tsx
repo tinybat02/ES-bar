@@ -99,7 +99,7 @@ export class MainPanel extends PureComponent<Props, State> {
           labelSkipWidth={12}
           labelSkipHeight={12}
           labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-          labelFormat={(labelValue) => ((<tspan y={-8}>{labelValue}</tspan>) as unknown) as string}
+          labelFormat={(labelValue) => ((<tspan y={-8}>{labelValue + ' %'}</tspan>) as unknown) as string}
           tooltip={({ id, value, color, indexValue }) => {
             return (
               <span style={{ color }}>

@@ -48097,7 +48097,7 @@ function (_super) {
       labelFormat: function labelFormat(labelValue) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tspan", {
           y: -8
-        }, labelValue);
+        }, labelValue + ' %');
       },
       tooltip: function tooltip(_a) {
         var id = _a.id,
@@ -48247,7 +48247,7 @@ var processData = function processData(series) {
   });
   return {
     data: result,
-    keys: keys
+    keys: keys.reverse()
   };
 };
 var formatTick = function formatTick(epoch, timezone, length) {

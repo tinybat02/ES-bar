@@ -42,7 +42,7 @@ export const processData = (series: Frame[]) => {
     });
   });
 
-  return { data: result, keys: keys };
+  return { data: result, keys: keys.reverse() };
 };
 
 export const formatTick = (epoch: React.Key, timezone: string, length: number) => {
