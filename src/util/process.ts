@@ -29,20 +29,33 @@ export const processData = (series: Frame[]) => {
 
   if (isZero) return { data: [], keys: [] };
 
+  const visualData = series.filter((serie) => serie.name != 'Sum count');
+  const totalData = series.filter((serie) => serie.name == 'Sum count');
+
+  if (totalData.length == 0 || visualData.length == 0) return { data: [], keys: [] };
+
   const result: Array<{ [key: string]: any }> = series[0].fields[1].values.buffer.map((time_num) => ({
     timestamp: time_num,
   }));
 
   const keys: string[] = [];
-  series.map((serie) => {
-    const group = serie.name || 'dummy';
+
+  const totalBuffer = totalData[0].fields[0].values.buffer;
+
+  visualData.map((category) => {
+    const group = category.name || 'dummy';
     keys.push(group);
-    serie.fields[0].values.buffer.map((value, idx) => {
-      result[idx][group] = Math.round(value * 100) / 100;
+    category.fields[0].values.buffer.map((value, idx) => {
+      if (totalBuffer[idx] == 0) {
+        result[idx][group] = 0;
+        return;
+      }
+
+      result[idx][group] = Math.round((value / totalBuffer[idx]) * 1000) / 10;
     });
   });
 
-  return { data: result, keys: keys.reverse() };
+  return { data: result, keys: keys };
 };
 
 export const formatTick = (epoch: React.Key, timezone: string, length: number) => {

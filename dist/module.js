@@ -48232,22 +48232,38 @@ var processData = function processData(series) {
     data: [],
     keys: []
   };
+  var visualData = series.filter(function (serie) {
+    return serie.name != 'Sum count';
+  });
+  var totalData = series.filter(function (serie) {
+    return serie.name == 'Sum count';
+  });
+  if (totalData.length == 0 || visualData.length == 0) return {
+    data: [],
+    keys: []
+  };
   var result = series[0].fields[1].values.buffer.map(function (time_num) {
     return {
       timestamp: time_num
     };
   });
   var keys = [];
-  series.map(function (serie) {
-    var group = serie.name || 'dummy';
+  var totalBuffer = totalData[0].fields[0].values.buffer;
+  visualData.map(function (category) {
+    var group = category.name || 'dummy';
     keys.push(group);
-    serie.fields[0].values.buffer.map(function (value, idx) {
-      result[idx][group] = Math.round(value * 100) / 100;
+    category.fields[0].values.buffer.map(function (value, idx) {
+      if (totalBuffer[idx] == 0) {
+        result[idx][group] = 0;
+        return;
+      }
+
+      result[idx][group] = Math.round(value / totalBuffer[idx] * 1000) / 10;
     });
   });
   return {
     data: result,
-    keys: keys.reverse()
+    keys: keys
   };
 };
 var formatTick = function formatTick(epoch, timezone, length) {
